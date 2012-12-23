@@ -169,28 +169,20 @@ Formulae* clone(Formulae* form)
 	{
 	case TRUE:
 		return True(formulaeAlloc());
-		break;
 	case FALSE:
 		return False(formulaeAlloc());
-		break;
 	case VAR:
 		return Var(formulaeAlloc(), _strdup(form->body.name));
-		break;
 	case NEG:
 		return Neg(formulaeAlloc(), clone(form->body.arg.op1));
-		break;
 	case CONJ:
 		return Conj(formulaeAlloc(), clone(form->body.arg.op1), clone(form->body.arg.op2));
-		break;
 	case DISJ:
 		return Disj(formulaeAlloc(), clone(form->body.arg.op1), clone(form->body.arg.op2));
-		break;
 	case IMPL:
 		return Impl(formulaeAlloc(), clone(form->body.arg.op1), clone(form->body.arg.op2));
-		break;
 	case IFF:
 		return Iff(formulaeAlloc(), clone(form->body.arg.op1), clone(form->body.arg.op2));
-		break;
 	default:
 		fprintf(stderr, "[Clone] Unexpected tag: %d", form->tag);
 	}

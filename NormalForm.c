@@ -11,7 +11,6 @@ Formulae* NNF(Formulae* form)
 	case FALSE:
 	case VAR:
 			return clone(form);
-		break;
 
 	case NEG:
 		// ~~F => F
