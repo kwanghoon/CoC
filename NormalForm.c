@@ -18,12 +18,12 @@ Formulae* NNF(Formulae* form)
 			return NNF(clone(form->body.arg.op1->body.arg.op1));
 
 		// ~T => F
-		if (form->body.arg.op1->tag == NEG)
-			return NNF(clone(form->body.arg.op1->body.arg.op1));
+		if (form->body.arg.op1->tag == TRUE)
+		  return False(formulaeAlloc());
 
 		// ~F => T
 		if(form->body.arg.op1->tag == FALSE)
-			return False(formulaeAlloc());
+			return True(formulaeAlloc());
 
 		// ~(F1 & F2) => ~F1 | ~ F2
 		if(form->body.arg.op1->tag == CONJ)
@@ -76,12 +76,12 @@ Formulae* NNF(Formulae* form)
 	case IFF:
 		// F1 <-> F2 => (F1 -> F2) & (F2 -> F1)
 			Conj(formulaeAlloc(),
-					Impl(formulaeAlloc(),
-							NNF(clone(form->body.arg.op1)),
-							NNF(clone(form->body.arg.op2))),
-					Impl(formulaeAlloc(),
-							NNF(clone(form->body.arg.op1)),
-							NNF(clone(form->body.arg.op2))));
+			     NNF(Impl(formulaeAlloc(),
+					clone(form->body.arg.op1),
+				      clone(form->body.arg.op2))),
+				 NNF(Impl(formulaeAlloc(),
+					clone(form->body.arg.op1),
+					  clone(form->body.arg.op2))));
 	default:
 		fprintf(stderr, "[NNF] Unexpected tag: %d", form->tag);
 		return NULL;

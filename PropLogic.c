@@ -5,6 +5,10 @@
 
 #include "PropLogic.h"
 
+#if SYSTEM == LINUX
+#define _strdup strdup
+#endif
+
 Formulae* formulaeAlloc ()
 {
 	Formulae* form = (Formulae*)malloc(sizeof(Formulae));

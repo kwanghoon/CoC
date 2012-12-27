@@ -34,7 +34,11 @@ int main()
 	printFormulae(NNF(form2));
 	printf("\n");
 
+#if SYSTEM == LINUX
+	/* empty */ 
+#else
 	system("pause");
+#endif
 	return 0;
 }
 
